@@ -3,42 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App</title>
+    <title>Mini App</title>
     <style>
+        /* تنظیمات کلی */
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e2d; /* رنگ پس‌زمینه */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
         }
-        button {
-            padding: 10px 20px;
+
+        /* هدر */
+        .header {
+            width: 100%;
+            background-color: #2c2c3e;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 2px solid #444;
+        }
+
+        /* کانتینر اصلی */
+        .container {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* دکمه‌ها */
+        .button {
+            padding: 12px 24px;
             font-size: 16px;
+            color: #fff;
+            background-color: #ff7f50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ff5733;
+        }
+
+        /* کارت‌ها */
+        .card {
+            background-color: #2c2c3e;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px;
+            width: 80%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-content {
+            font-size: 14px;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Mini App</h1>
-    <p id="user-info">Loading user information...</p>
-    <button id="action-button">Click Me!</button>
+    <!-- هدر -->
+    <div class="header">My Mini App</div>
+
+    <!-- کانتینر اصلی -->
+    <div class="container">
+        <h1 id="welcome-message">Hello, User!</h1>
+        <div class="card">
+            <div class="card-title">Your Balance</div>
+            <div class="card-content">10,000 Points</div>
+        </div>
+        <button class="button" onclick="performAction()">Claim Your Reward</button>
+    </div>
 
     <script>
-        // دسترسی به API تلگرام
+        // Telegram Web App API
         const tg = window.Telegram.WebApp;
 
         // گسترش تمام صفحه
         tg.expand();
 
-        // دریافت اطلاعات کاربر
+        // نمایش نام کاربر
         const user = tg.initDataUnsafe.user;
-        document.getElementById('user-info').innerText = `Hello, ${user.first_name}!`;
+        document.getElementById('welcome-message').innerText = `Hello, ${user.first_name || "User"}!`;
 
-        // تنظیم عملکرد دکمه
-        const button = document.getElementById('action-button');
-        button.addEventListener('click', () => {
-            tg.sendData("Button clicked!"); // ارسال داده به بات تلگرام
-            alert("You clicked the button!");
-        });
+        // عملکرد دکمه
+        function performAction() {
+            tg.sendData("Button clicked!");
+            alert("Reward Claimed!");
+        }
     </script>
 </body>
 </html>

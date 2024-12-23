@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Mini App</h1>
+    <p id="user-info">Loading user information...</p>
+    <button id="action-button">Click Me!</button>
+
+    <script>
+        // دسترسی به API تلگرام
+        const tg = window.Telegram.WebApp;
+
+        // گسترش تمام صفحه
+        tg.expand();
+
+        // دریافت اطلاعات کاربر
+        const user = tg.initDataUnsafe.user;
+        document.getElementById('user-info').innerText = `Hello, ${user.first_name}!`;
+
+        // تنظیم عملکرد دکمه
+        const button = document.getElementById('action-button');
+        button.addEventListener('click', () => {
+            tg.sendData("Button clicked!"); // ارسال داده به بات تلگرام
+            alert("You clicked the button!");
+        });
+    </script>
+</body>
+</html>

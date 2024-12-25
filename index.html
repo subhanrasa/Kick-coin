@@ -3,107 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini App</title>
+    <title>Telegram Mini App</title>
     <style>
-        /* تنظیمات کلی */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
+            text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #1e1e2d;
-            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #28a745; /* سبز دلاری */
+        }
+        img {
+            margin-bottom: 20px;
+            width: 120px;
+            height: 120px;
+        }
+        .buttons {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
-        }
-
-        /* هدر */
-        .header {
-            width: 100%;
-            background-color: #2c2c3e;
-            padding: 15px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            border-bottom: 2px solid #444;
-        }
-
-        /* کانتینر اصلی */
-        .container {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* تصویر کاربر */
-        .profile-pic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+            gap: 10px;
             margin-top: 20px;
-            border: 3px solid #ff7f50;
         }
-
-        /* دکمه‌ها */
         .button {
-            padding: 12px 24px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #ff7f50;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007BFF;
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
+            text-transform: uppercase;
         }
-
         .button:hover {
-            background-color: #ff5733;
+            background-color: #0056b3;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none; /* مخفی پیش‌فرض */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .modal-content h3 {
+            margin-top: 0;
+        }
+        .modal-content ul {
+            padding: 0;
+            list-style: none;
+        }
+        .modal-content ul li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-content ul li img {
+            width: 30px;
+            height: 30px;
+        }
+        .close-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .action-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #1e7e34;
         }
     </style>
 </head>
 <body>
-    <!-- هدر -->
-    <div class="header">Welcome to Mini App</div>
+    <!-- آیکون -->
+    <img id="icon" src="your-icon-url" alt="App Icon">
 
-    <!-- کانتینر اصلی -->
-    <div class="container">
-        <!-- تصویر پروفایل کاربر -->
-        <img id="profile-pic" class="profile-pic" src="" alt="Profile Picture" />
-        <!-- نام کاربر -->
-        <h1 id="welcome-message">Hello, User!</h1>
-        <!-- دکمه‌ها -->
-        <button class="button" onclick="performAction()">Click Me!</button>
+    <!-- دکمه‌ها -->
+    <div class="buttons">
+        <button class="button" onclick="openModal()">لینک‌ها</button>
+    </div>
+
+    <!-- Modal لینک‌ها -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3>لینک‌های معتبر فوتبال</h3>
+            <ul>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/FIFA_Logo_%282010%29.svg" alt="FIFA Logo">
+                    <button class="button" onclick="openLeagueDetails('FIFA')">FIFA</button>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/UEFA_logo.svg" alt="UEFA Logo">
+                    <button class="button" onclick="openLeagueDetails('UEFA')">UEFA</button>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg" alt="Premier League Logo">
+                    <button class="button" onclick="openLeagueDetails('Premier League')">Premier League</button>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/0/01/La_Liga.svg" alt="La Liga Logo">
+                    <button class="button" onclick="openLeagueDetails('La Liga')">La Liga</button>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/6/6e/Bundesliga_logo_%282017%29.svg" alt="Bundesliga Logo">
+                    <button class="button" onclick="openLeagueDetails('Bundesliga')">Bundesliga</button>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/e/e1/Serie_A_logo_%282019%29.svg" alt="Serie A Logo">
+                    <button class="button" onclick="openLeagueDetails('Serie A')">Serie A</button>
+                </li>
+            </ul>
+            <button class="close-button" onclick="closeModal()">بستن</button>
+        </div>
+    </div>
+
+    <!-- Modal جزئیات لیگ -->
+    <div class="modal" id="leagueModal">
+        <div class="modal-content">
+            <h3 id="league-title">League Title</h3>
+            <p id="membership-status">وضعیت عضویت: نامشخص</p>
+            <button class="action-button" id="join-league" onclick="joinLeague()">عضویت</button>
+            <button class="action-button" id="leave-league" onclick="leaveLeague()">خروج از عضویت</button>
+            <button class="close-button" onclick="closeLeagueModal()">بستن</button>
+        </div>
     </div>
 
     <script>
-        // Telegram Web App API
-        const tg = window.Telegram.WebApp;
+        let currentLeague = ''; // لیگ فعلی
 
-        // گسترش تمام صفحه
-        tg.expand();
-
-        // اطلاعات کاربر
-        const user = tg.initDataUnsafe.user;
-
-        // نمایش نام کاربر
-        const welcomeMessage = document.getElementById('welcome-message');
-        welcomeMessage.innerText = `Hello, ${user.first_name || "User"}!`;
-
-        // نمایش تصویر پروفایل کاربر
-        const profilePic = document.getElementById('profile-pic');
-        if (user.photo_url) {
-            profilePic.src = user.photo_url; // لینک تصویر از تلگرام
-        } else {
-            profilePic.style.display = 'none'; // اگر تصویر وجود نداشت، مخفی شود
+        // باز کردن پنجره لینک‌ها
+        function openModal() {
+            document.getElementById('modal').style.display = 'flex';
         }
 
-        // عملکرد دکمه
-        function performAction() {
-            tg.sendData("Button clicked!");
-            alert("Action performed!");
+        // بستن پنجره لینک‌ها
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // باز کردن جزئیات لیگ
+        function openLeagueDetails(league) {
+            currentLeague = league;
+            document.getElementById('league-title').textContent = `جزئیات لیگ: ${league}`;
+            document.getElementById('membership-status').textContent = 'وضعیت عضویت: عضو نشده';
+            document.getElementById('leagueModal').style.display = 'flex';
+        }
+
+        // بستن جزئیات لیگ
+        function closeLeagueModal() {
+            document.getElementById('leagueModal').style.display = 'none';
+        }
+
+        // عضویت در لیگ
+        function joinLeague() {
+            document.getElementById('membership-status').textContent = `وضعیت عضویت: عضو ${currentLeague}`;
+            alert(`شما به لیگ ${currentLeague} پیوستید!`);
+        }
+
+        // خروج از لیگ
+        function leaveLeague() {
+            document.getElementById('membership-status').textContent = 'وضعیت عضویت: عضو نشده';
+            alert(`شما از لیگ ${currentLeague} خارج شدید!`);
         }
     </script>
 </body>
